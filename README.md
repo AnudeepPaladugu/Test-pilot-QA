@@ -1,101 +1,106 @@
-# TestPilot QA
-### Manual Test Management · Test Execution · Defect Tracking
+<div align="center">
 
-TestPilot QA is a portfolio project exploring how manual software testing workflows can be organized in one focused workspace. It brings together test case design, reusable suites, execution runs, linked defects, and quality summaries.
+<img src="assets/testpilot-hero.svg" alt="TestPilot QA portfolio banner" width="100%" />
 
-> **Project status:** Work in progress. Core workflows are implemented in the local demo; cloud setup and broader validation are still being refined. This is a learning and portfolio project, not a claim of production readiness.
+### A focused workspace for manual QA workflows
 
-## Overview
+Organize test cases, execute test runs, connect failures to defects, and review quality signals in one place.
 
-The app is designed around a familiar QA cycle:
+[Features](#-what-it-does) · [Tech Stack](#-technology) · [Run Locally](#-run-locally) · [Roadmap](#-roadmap)
 
-**Plan → Organize → Execute → Report → Triage**
+![React](https://img.shields.io/badge/React-19-149ECA?style=flat-square&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5%2B-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-Frontend-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Work%20in%20Progress-D97706?style=flat-square)
 
-## Current Features
+</div>
 
-### Project workspace
-- Create, edit, archive, restore, and switch between projects.
-- Track target environments such as Development, QA, Staging, and Production.
-- Keep test artifacts associated with their project.
+---
 
-### Test case design
-- Store preconditions, test data, expected results, priority, type, and status.
-- Build and reorder step-by-step actions with expected outcomes.
-- Search, filter, sort, duplicate, bulk-manage, and export cases.
+## 🧪 What it does
 
-### Test suites
-- Group cases by feature area or regression scope.
-- Review suite membership and case counts.
-- Unassign cases when removing a suite to avoid unintended data loss.
+**TestPilot QA** is an independent portfolio project exploring how day-to-day manual testing work can be managed from planning through execution and defect triage.
 
-### Test execution
-- Set up test runs for a target environment and build.
-- Record step outcomes and notes.
-- Track Passed, Failed, Blocked, and Not Run statuses.
-- Calculate completion and pass-rate metrics, with safeguards for unevaluated cases.
+| Workflow | Current scope |
+|---|---|
+| **Projects** | Create and switch workspaces, track environments, archive and restore projects |
+| **Test cases** | Record preconditions, data, expected results, priorities, types, and ordered steps |
+| **Test suites** | Group cases by feature area or regression scope |
+| **Test runs** | Record Passed, Failed, Blocked, and Not Run outcomes, plus execution notes |
+| **Defects** | Track severity, priority, lifecycle status, and links to failed tests |
+| **Reports** | Review execution summaries and export cases, runs, and defects to CSV |
+| **Local demo** | Explore seeded sample data without first configuring a cloud database |
+| **Optional cloud path** | Firebase Authentication and Cloud Firestore integration setup |
 
-### Defect tracking
-- Capture defects with severity, priority, status, and reproduction details.
-- Link defects to relevant test cases and executions.
-- Filter the defect list during triage.
+## 🔎 A QA workflow at a glance
 
-### Reports and data handling
-- Review execution and defect summaries.
-- Export test cases, executions, defects, and project summaries as CSV.
-- Sanitize spreadsheet-formula prefixes in CSV exports.
-- Use local demo data, with an optional Firebase Authentication and Cloud Firestore integration path.
+<div align="center">
 
-## Technology
+```text
+PLAN
+  ↓
+Design test cases
+  ↓
+Organize suites
+  ↓
+Execute test run
+  ↓
+Investigate failures ───→ Link defect
+  ↓
+Review results & export
+```
 
-- **Frontend:** React 19, TypeScript, Vite
+</div>
+
+The application includes safeguards for unfinished test runs and calculates completion and pass-rate metrics from execution outcomes. CSV exports include formula-prefix sanitization to reduce spreadsheet formula-injection risk.
+
+## 🛠 Technology
+
+- **UI:** React 19, TypeScript, Vite
 - **Styling:** Tailwind CSS v4
-- **UI icons:** Lucide React
-- **Local persistence:** Browser local storage
-- **Optional cloud storage:** Firebase Authentication and Cloud Firestore
+- **Icons and motion:** Lucide React and Motion
+- **Default persistence:** Browser local storage with sample data
+- **Optional cloud integration:** Firebase Authentication and Cloud Firestore
 
-## Run Locally
+## 🚀 Run locally
 
-### Requirements
-- Node.js and npm, or Bun
-- A modern browser
-
-### Setup
+**Prerequisites:** Node.js with npm, or Bun, and a modern browser.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Vite starts the development server on port **3000**.
+The development server is configured for port **3000**.
 
-### Quality checks
+Run the available checks:
 
 ```bash
 npm run lint
 npm run build
 ```
 
-## Portfolio Walkthrough
+## 🧭 Portfolio walkthrough
 
-1. Open the dashboard and review the sample project metrics.
-2. Switch between the sample workspaces.
-3. Open a test case and inspect its preconditions, test data, and steps.
-4. Run a test and update its outcome.
-5. Mark a case as failed and follow the linked-defect workflow.
-6. Export a report to inspect the CSV output.
+1. Open the dashboard and inspect the sample project summaries.
+2. Switch between sample projects to explore separate QA workspaces.
+3. Review a test case and its ordered steps.
+4. Open a test run and change an execution outcome.
+5. Mark a test as failed and explore the linked-defect workflow.
+6. Export a CSV and inspect its structure.
 
-## Roadmap
+## 🗺 Roadmap
 
-- [ ] Expand automated tests for the most important QA workflows.
-- [ ] Validate cloud sync and user-level data isolation with dedicated test accounts.
-- [ ] Improve empty states, loading feedback, and error recovery.
-- [ ] Add stronger end-to-end coverage for test execution and defect linking.
-- [ ] Document deployment and backup/restore practices.
+- [ ] Add automated regression coverage for critical state changes.
+- [ ] Verify Firebase sync and user-level isolation using dedicated test accounts.
+- [ ] Expand edge-case tests for test-run calculations and linked defects.
+- [ ] Improve keyboard navigation, accessibility, and responsive behavior.
+- [ ] Document deployment, backup, and restore practices.
 
-## Project Notes
+## 📌 Project status and limitations
 
-The repository is intended to demonstrate practical QA thinking and a working prototype. Cloud features require your own Firebase project and configuration. Before using real or sensitive testing data, review the Firebase configuration and security rules for your deployment.
+**Work in progress.** This is a functional portfolio prototype, not a claim of production readiness. Cloud functionality requires your own Firebase project and configuration, and should be validated before use with real or sensitive testing data. The documented setup and feature list describe the intended current experience; run the checks above in your environment before relying on a build.
 
----
+## 👤 Author
 
-Built as an independent QA portfolio project by **Anudeep Paladugu**.
+**Anudeep Paladugu** · [GitHub](https://github.com/AnudeepPaladugu) · [LinkedIn](https://www.linkedin.com/in/anudeeppaladugu/)
