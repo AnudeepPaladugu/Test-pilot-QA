@@ -1,128 +1,101 @@
-# TestPilot QA - Test Case Management Web Application
+# TestPilot QA
+### Manual Test Management · Test Execution · Defect Tracking
 
-**TestPilot QA** is a complete, production-grade manual QA Test Case Management web application designed for test architects, QA engineers, and software testing teams. It demonstrates practical workflows for test design, suite organization, interactive test run execution, defect triage, and quality reporting.
+TestPilot QA is a portfolio project exploring how manual software testing workflows can be organized in one focused workspace. It brings together test case design, reusable suites, execution runs, linked defects, and quality summaries.
 
----
+> **Project status:** Work in progress. Core workflows are implemented in the local demo; cloud setup and broader validation are still being refined. This is a learning and portfolio project, not a claim of production readiness.
 
-## 1. Core Features
+## Overview
 
-### 📁 Project Management
-- Complete project CRUD with custom keys (2–10 uppercase alphanumeric, e.g., `SHOP`, `AUTH`).
-- Environment tracking (`Development`, `QA`, `Staging`, `Production`, `Custom`).
-- Active project switcher with quick-access context.
-- Archive and restore projects with safe deletion protections preventing accidental test artifact loss.
+The app is designed around a familiar QA cycle:
 
-### 📝 Test Case Management
-- Rich metadata: ID (`TC-0001`), Title, Preconditions, Test Data, Expected Results, Priority (`Critical`, `High`, `Medium`, `Low`), Type (`Functional`, `UI`, `Regression`, `Smoke`, `Negative`, `Validation`, etc.), and Status (`Ready`, `Draft`, `Deprecated`).
-- **Dynamic Step-by-Step Builder**: Add, edit, remove, and reorder steps with individual actions and expected results.
-- Sequential ID generator avoiding silent collisions.
-- Full text search, multi-attribute faceted filters, and sorting.
-- Multi-select actions: bulk delete, bulk assign to suite, and CSV export.
-- Duplicate test case action with clean ID generation and preserved steps.
+**Plan → Organize → Execute → Report → Triage**
 
-### 🗂️ Test Suites
-- Group test cases by business capability or regression slice.
-- Case count badges and direct navigation to filtered test cases.
-- Safe suite deletion: prompts to unassign cases to prevent accidental cascade deletion.
+## Current Features
 
-### ⚡ Interactive Test Execution Runner
-- Create test runs across environments and release builds (`TR-0001`).
-- Step-through test execution runner with real-time feedback.
-- Record verdicts: **Passed** (`#16845B`), **Failed** (`#C43F50`), **Blocked** (`#B7791F`), **Not Run** (`#718096`).
-- Capture actual results and execution notes.
-- **One-Click Linked Defect Creation**: When a test fails, click "Log Linked Defect" to automatically prefill the defect form with project, case ID, run ID, execution ID, and observed actual results.
-- **Accurate Metric Calculations**:
-  - `Completed = Passed + Failed + Blocked`
-  - `Completion % = (Completed / Total) * 100` (returns 0% when 0 cases scheduled)
-  - `Pass Rate = Passed / (Passed + Failed) * 100` (returns `N/A` when no evaluated cases)
-- Completion safeguard: warns if test cases remain "Not Run" prior to finalizing.
+### Project workspace
+- Create, edit, archive, restore, and switch between projects.
+- Track target environments such as Development, QA, Staging, and Production.
+- Keep test artifacts associated with their project.
 
-### 🐞 Defect Management
-- Track defects (`BUG-0001`) with Severity, Priority (`P1`–`P4`), and Status (`Open`, `In Progress`, `Fixed`, `Retest`, `Closed`, `Reopened`).
-- Direct bidirectional links to test cases and test runs.
-- Search and filter by severity, priority, and status.
+### Test case design
+- Store preconditions, test data, expected results, priority, type, and status.
+- Build and reorder step-by-step actions with expected outcomes.
+- Search, filter, sort, duplicate, bulk-manage, and export cases.
 
-### 📊 Reports & CSV Exports
-- Comprehensive dashboard and dedicated analytics tab.
-- Distribution bars for test executions and defect severity risk.
-- **Formula-Injection Safe CSV Exports**:
-  - All CSV cells starting with formula triggers (`=`, `+`, `-`, `@`, `\t`, `\r`) are automatically sanitized.
-  - Export Test Cases, Test Run Executions, Defects, and Project Summary Reports.
+### Test suites
+- Group cases by feature area or regression scope.
+- Review suite membership and case counts.
+- Unassign cases when removing a suite to avoid unintended data loss.
 
-### 🔒 Dual Storage Architecture (Demo Mode + Cloud Firestore)
-- **Out-of-the-Box Local Demo Mode**: Preloaded with realistic seed data for an enterprise E-Commerce platform (`ShopSphere`) and SSO provider (`CloudAuth`), persisting locally in browser `localStorage`.
-- **Firebase Cloud Firestore Integration Layer**: Ready for connection without exposing backend credentials in the browser bundle.
+### Test execution
+- Set up test runs for a target environment and build.
+- Record step outcomes and notes.
+- Track Passed, Failed, Blocked, and Not Run statuses.
+- Calculate completion and pass-rate metrics, with safeguards for unevaluated cases.
 
----
+### Defect tracking
+- Capture defects with severity, priority, status, and reproduction details.
+- Link defects to relevant test cases and executions.
+- Filter the defect list during triage.
 
-## 2. Technology Stack
+### Reports and data handling
+- Review execution and defect summaries.
+- Export test cases, executions, defects, and project summaries as CSV.
+- Sanitize spreadsheet-formula prefixes in CSV exports.
+- Use local demo data, with an optional Firebase Authentication and Cloud Firestore integration path.
 
-- **Frontend**: React 19, TypeScript, Vite, Tailwind CSS v4, Lucide React icons.
-- **Database & Auth (Optional Cloud)**: Firebase Authentication (Google Sign-In), Cloud Firestore client SDK.
-- **Persistence (Default Local)**: LocalStorageService with realistic seed data, JSON backup/restore, and reset capability.
-- **Design System**: Tailored SaaS dashboard theme adhering to anti-slop guidelines, clean typography (Plus Jakarta Sans & JetBrains Mono), and WCAG AA contrast.
+## Technology
 
----
+- **Frontend:** React 19, TypeScript, Vite
+- **Styling:** Tailwind CSS v4
+- **UI icons:** Lucide React
+- **Local persistence:** Browser local storage
+- **Optional cloud storage:** Firebase Authentication and Cloud Firestore
 
-## 3. Local Development Setup
+## Run Locally
+
+### Requirements
+- Node.js and npm, or Bun
+- A modern browser
+
+### Setup
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Start the local development server
 npm run dev
-
-# 3. Build for production
-npm run build
-
-# 4. Run type checks and linter
-npm run lint
 ```
 
----
+Vite starts the development server on port **3000**.
 
-## 4. Cloud Database & Firebase Configuration
-
-To enable Cloud Firestore synchronization:
-
-1. Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project.
-2. Under **Project Settings > General > Your Apps**, create a Web Application (`</>`).
-3. Copy the `firebaseConfig` object containing:
-   - `apiKey`
-   - `authDomain`
-   - `projectId`
-   - `storageBucket`
-   - `appId`
-4. In **TestPilot QA**, navigate to **Settings & Cloud DB**.
-5. Paste your config into the Firebase Web Config box and click **Save & Initialize Firebase**.
-6. Under **Firebase Console > Authentication > Sign-in method**, enable **Google** provider.
-7. Add your application domain to **Authorized Domains** in Firebase Authentication settings.
-
-### Firestore Security Rules
-Deploy the included `firestore.rules` to your Firebase project:
+### Quality checks
 
 ```bash
-firebase deploy --only firestore:rules
+npm run lint
+npm run build
 ```
 
-Or copy the rules directly from the **Settings & Cloud DB** page in the application.
+## Portfolio Walkthrough
+
+1. Open the dashboard and review the sample project metrics.
+2. Switch between the sample workspaces.
+3. Open a test case and inspect its preconditions, test data, and steps.
+4. Run a test and update its outcome.
+5. Mark a case as failed and follow the linked-defect workflow.
+6. Export a report to inspect the CSV output.
+
+## Roadmap
+
+- [ ] Expand automated tests for the most important QA workflows.
+- [ ] Validate cloud sync and user-level data isolation with dedicated test accounts.
+- [ ] Improve empty states, loading feedback, and error recovery.
+- [ ] Add stronger end-to-end coverage for test execution and defect linking.
+- [ ] Document deployment and backup/restore practices.
+
+## Project Notes
+
+The repository is intended to demonstrate practical QA thinking and a working prototype. Cloud features require your own Firebase project and configuration. Before using real or sensitive testing data, review the Firebase configuration and security rules for your deployment.
 
 ---
 
-## 5. Security & Isolation
-
-- **Zero Secrets in Client**: No Firebase Admin credentials or private service accounts are included in the bundle.
-- **Multi-Tenant Isolation**: Records are partitioned under `users/{uid}/projects/{projectId}/...`.
-- **CSV Formula Injection Prevention**: Leading characters (`=`, `+`, `-`, `@`) are prefixed with single quotes per OWASP recommendations.
-
----
-
-## 6. Portfolio Demonstration Guide
-
-To demonstrate the application:
-1. **Dashboard**: Observe calculated pass rates and execution distributions.
-2. **Project Switcher**: Switch from "ShopSphere E-Commerce" to "CloudAuth SSO" in the top bar to verify workspace isolation.
-3. **Interactive Test Runner**: Go to **Test Runs**, open `TR-0001`, change a test verdict, and observe instant progress updates.
-4. **Log Linked Defect**: Mark a test as "Failed" and click "Log Linked Defect". Notice how the defect form is prefilled with step information.
-5. **CSV Export**: Click "Export CSV" on the Test Cases or Reports page to verify exported spreadsheets.
+Built as an independent QA portfolio project by **Anudeep Paladugu**.
