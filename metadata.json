@@ -1,6 +1,6 @@
 {
   "name": "TestPilot QA",
-  "description": "Professional QA Test Case Management SaaS web application for manual software testing, test runs, defect tracking, and analytics.",
+  "description": "Work-in-progress manual QA workspace for test cases, test runs, defect tracking, and reporting.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }
